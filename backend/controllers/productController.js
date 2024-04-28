@@ -9,6 +9,20 @@ const getProducts = asyncHandler(async (req, res) => {
 	res.status(200).json(products);
 });
 
+// @desc: Get a single product from the database by endPoint
+// @route: GET /api/products/endPoint/:endPoint
+// @access: Public
+const getProductByEndPoint = asyncHandler(async (req, res) => {
+	const product = await Product.findOne({ endPoint: req.params.endPoint });
+
+	if (!product) {
+		res.status(404);
+		throw new Error("Product not found");
+	}
+
+	res.status(200).json(product);
+});
+
 // @desc: Set a product in the database
 // @route: POST /api/products
 // @access: Public
@@ -47,4 +61,4 @@ const deleteProduct = asyncHandler(async (req, res) => {
 	res.status(200).json({ id: req.params.id });
 });
 
-module.exports = { getProducts, setProduct, updateProduct, deleteProduct };
+module.exports = { getProducts, setProduct, updateProduct, deleteProduct, getProductByEndPoint };
