@@ -17,6 +17,13 @@ app.use("/api/users", require("./routes/userRoutes"));
 
 app.use(errorHandler);
 
+app.use((req, res, next) => {
+	res.header("Access-Control-Allow-Origin", "*"); // Or a specific domain
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+	res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+	next();
+});
+
 app.listen(port, () => {
 	console.log(`Server is running on port ${port}`);
 });
